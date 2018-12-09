@@ -23,3 +23,4 @@ run npm i to copy mysql, inquirer, ???ctable
 * Node.js - https://nodejs.org
 * MySQL Workbench - https://www.mysql.com/products/workbench/
 * MAMP local server - https://www.mamp.info/en/
+* console.table (for formating console output) - https://www.npmjs.com/package/console.table
