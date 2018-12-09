@@ -1,0 +1,25 @@
+{
+  "name": "Bamazon",
+  "version": "1.0.0",
+  "description": "1. Open the code for `bamazon_schema.sql` in your text editor (Visual Studio Code is shown in the screenshots). Paste it into the Query window of `MySQL Workbench`. \r 2. Click the leftmost lightning-bolt icon (to the right of the disk icon), or select Query - Execute (All or Selection) in the Workbench menu. This will create the schema (skeleton) for the database. \r 3. Then click on the refresh icon at the top right side of the SCHEMAS panel to confirm that the database was created. It should be called bamazon_db. Click on the dropdown arrows of the database and confirm that the database was created, and that it has a table named `products` with a number of columns.",
+  "main": "bamazonCustomer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dirk-kiesewetter/Bamazon.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dirk-kiesewetter/Bamazon/issues"
+  },
+  "homepage": "https://github.com/dirk-kiesewetter/Bamazon#readme",
+  "dependencies": {
+    "console.table": "^0.10.0",
+    "inquirer": "^6.2.1",
+    "mysql": "^2.16.0"
+  }
+}
