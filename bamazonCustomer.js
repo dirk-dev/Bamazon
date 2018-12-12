@@ -109,13 +109,14 @@ function inventoryDisplay() {
                                     else {
                                         // buyAgain();
                                     }
-
                                 })
 
                         } else {
                             console.log('\x1b[31mSorry, we do not have that many in stock.\x1b[0m')
                             // buyAgain();
                         }
+                        connection.end();
+
                     }
                 }
             });
