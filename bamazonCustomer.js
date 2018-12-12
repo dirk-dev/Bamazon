@@ -11,7 +11,7 @@ const connection = mysql.createConnection({
     // Your username
     user: "root",
 
-    // Your password
+    // Your passwords
     password: "root",
     database: "bamazon_DB"
 });
@@ -21,95 +21,84 @@ connection.connect(function (err) {
     else {
         console.log("connected as id " + connection.threadId + "\n");
         inventoryDisplay();
-        connection.end();
     }
 
 })
 
 function inventoryDisplay() {
     connection.query("SELECT * FROM products", function (err, results) {
-            if (err) throw err;
-            console.log("Items available for sale:");
-            console.table(results);
-            console.log("---------------------------------------------------------");
+        if (err) throw err;
+        console.log("Items available for sale:");
+        console.table(results);
+        console.log("---------------------------------------------------------");
 
-            inquirer.prompt([{
-                        name: 'choice',
-                        type: 'input',
-                        message: 'What is the id of the product you want to purchase?',
-                        validate: function (value) {
-                            //prevents user from entering invalid input
-                            if (value > results.length) {
-                                return false;
-                            }
-                            if (value < 1) {
-                                return false;
-                            }
-                            if (isNaN(value) === false) {
-                                return true;
-                            }
+        inquirer.prompt([{
+                    name: 'choice',
+                    type: 'input',
+                    message: 'What is the id of the product you want to purchase?',
+                    validate: function (value) {
+                        //prevents user from entering invalid input
+                        if (value > results.length) {
                             return false;
                         }
-                    },
-                    {
-                        name: 'units_to_buy',
-                        type: 'input',
-                        message: 'How many units do want to buy?',
-                        validate: function (value) {
-                            if (value < 1) {
-                                return false;
-                            }
-                            if (isNaN(value) === false) {
-                                return true;
-                            }
+                        if (value < 1) {
                             return false;
                         }
+                        if (isNaN(value) === false) {
+                            return true;
+                        }
+                        return false;
                     }
-
-                ])
-                .then(function (answer) {
-
-                        console.log("a.choice", answer.choice)
-                        var chosenItem = answer.choice;
-
-                        // for (var i = 0; i < results.length; i++) {
-                        //     if (answer.choice === results[i].id) {
-                        //         chosenItem = results[i];
-                        //         console.log('chosen item', chosenItem);
-                        //     }
+                },
+                {
+                    name: 'units_to_buy',
+                    type: 'input',
+                    message: 'How many units do want to buy?',
+                    validate: function (value) {
+                        if (value < 1) {
+                            return false;
+                        }
+                        if (isNaN(value) === false) {
+                            return true;
+                        }
+                        return false;
                     }
+                }
 
-                    // if (chosenItem.stock_quantity <= answer.units_to_buy) {
-                    //     console.log("you're in luck")
-                    // } else {
-                    //     console.log("so sorry!");
-                    // }
+            ])
+            .then(function (answer) {
 
-                    // console.log(answer)
+                var chosenItem = answer.choice;
+                var orderQty = answer.units_to_buy;
 
-                    // if (answer)
-                });
+                for (let i = 0; i < results.length; i++) {
+                    let currentItem = results[i];
+                    if (currentItem.item_id == chosenItem) {
+                        if (orderQty <= currentItem.stock_quantity) {
+                            console.log('Your order is approved. Your total cost is $', (orderQty * currentItem.price).toFixed(2));
 
+                            let updateQuery = "UPDATE products SET stock_quantity = " + (currentItem.stock_quantity - orderQty) +
+                                " WHERE item_id = " + currentItem.item_id;
+
+                            console.log(updateQuery);
+
+                            connection.query(updateQuery,
+                                function (err, results) {
+                                    if (err) throw err;
+                                    connection.end();
+                                })
+
+                        } else {
+                            console.log('Sorry, your order was denied. Please try again')
+
+                            inventoryDisplay();
+                        }
+                    }
+                }
+            });
     })
 }
-
 
 function purchaseInquiry() {
 
 };
-
-
-/*
-PSEUDOCODE - 
-**** issue - should only display ID, name, & price on screen on start
-
-* take user input for id_to_buy, match with item_id from the DB.
-* if (units_to_buy <= stock_qty) { decrement stock_quantity of item_id, 
-    then - console.log("Thank you for your order. Your total price is", units_to_buy)
-
-}
-else {
-    console.log("Sorry, we do not have that many in stock.");
-}
-   
- */
