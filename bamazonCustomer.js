@@ -16,19 +16,41 @@ const connection = mysql.createConnection({
     database: "bamazon_DB"
 });
 
+// initial database connection and inventory display
 connection.connect(function (err) {
     if (err) console.log("error:", err);
     else {
-        console.log("connected as id " + connection.threadId + "\n");
+        // console.log("connected as id " + connection.threadId + "\n");
         inventoryDisplay();
     }
-
 })
 
+function buyAgain() {
+
+    inquirer.prompt([{
+        name: 'choice',
+        type: 'rawlist',
+        choices: ['YES', 'NO'],
+        message: 'Do you want to buy anything else?',
+        validate: function (choice) {
+            if (choice) {
+                console.log('i.d. called')
+                inventoryDisplay();
+            } else {
+                console.log('c.e. called')
+                connection.end();
+                return;
+            }
+        }
+    }])
+}
+
 function inventoryDisplay() {
+
     connection.query("SELECT * FROM products", function (err, results) {
         if (err) throw err;
-        console.log("Items available for sale:");
+        console.log('\n')
+        console.log('\x1b[36mItems available for sale:\x1b[0m');
         console.table(results);
         console.log("---------------------------------------------------------");
 
@@ -53,7 +75,7 @@ function inventoryDisplay() {
                 {
                     name: 'units_to_buy',
                     type: 'input',
-                    message: 'How many units do want to buy?',
+                    message: 'How many do want to buy?',
                     validate: function (value) {
                         if (value < 1) {
                             return false;
@@ -64,41 +86,38 @@ function inventoryDisplay() {
                         return false;
                     }
                 }
-
             ])
             .then(function (answer) {
 
                 var chosenItem = answer.choice;
                 var orderQty = answer.units_to_buy;
 
+                //loops through array of objects to compare order quantity to available stock quantity
                 for (let i = 0; i < results.length; i++) {
                     let currentItem = results[i];
                     if (currentItem.item_id == chosenItem) {
                         if (orderQty <= currentItem.stock_quantity) {
-                            console.log('Your order is approved. Your total cost is $', (orderQty * currentItem.price).toFixed(2));
+                            console.log('Your order is approved. Your total cost is $' + (orderQty * currentItem.price).toFixed(2));
 
+                            // updates MySQL database
                             let updateQuery = "UPDATE products SET stock_quantity = " + (currentItem.stock_quantity - orderQty) +
                                 " WHERE item_id = " + currentItem.item_id;
-
-                            console.log(updateQuery);
 
                             connection.query(updateQuery,
                                 function (err, results) {
                                     if (err) throw err;
-                                    connection.end();
+                                    else {
+                                        // buyAgain();
+                                    }
+
                                 })
 
                         } else {
-                            console.log('Sorry, your order was denied. Please try again')
-
-                            inventoryDisplay();
+                            console.log('\x1b[31mSorry, we do not have that many in stock.\x1b[0m')
+                            // buyAgain();
                         }
                     }
                 }
             });
     })
 }
-
-function purchaseInquiry() {
-
-};
