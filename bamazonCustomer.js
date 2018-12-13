@@ -25,25 +25,25 @@ connection.connect(function (err) {
     }
 })
 
-function buyAgain() {
+// function buyAgain() {
 
-    inquirer.prompt([{
-        name: 'choice',
-        type: 'list',
-        choices: ['YES', 'NO'],
-        message: 'Do you want to buy anything else?\n Type CTRL-C to quit.\n',
-        validate: function (value) {
-            if (value == 'YES') {
-                console.log('i.d. called')
-                inventoryDisplay();
-            } else {
-                console.log('c.e. called')
-                connection.end();
-                return;
-            }
-        }
-    }])
-}
+//     inquirer.prompt([{
+//         name: 'choice',
+//         type: 'list',
+//         choices: ['YES', 'NO'],
+//         message: 'Do you want to buy anything else?\n Type CTRL-C to quit.\n',
+//         validate: function (value) {
+//             if (value == 'YES') {
+//                 console.log('i.d. called')
+//                 inventoryDisplay();
+//             } else {
+//                 console.log('c.e. called')
+//                 connection.end();
+//                 return;
+//             }
+//         }
+//     }])
+// }
 
 function inventoryDisplay() {
 
@@ -57,14 +57,18 @@ function inventoryDisplay() {
         inquirer.prompt([{
                     name: 'choice',
                     type: 'input',
-                    message: 'What is the id of the product you want to purchase?',
+                    message: 'What is the id of the product you want to purchase? [Type q to quit]',
                     validate: function (value) {
                         //prevents user from entering invalid input
                         if ((value > results.length) || (value < 1)) {
                             return false;
                         }
-                        if (isNaN(value) === false) {
+                        if ((isNaN(value) === false) && (value !== 'q')) {
                             return true;
+                        }
+                        if (value === 'q') {
+                            connection.end()
+                            return false;
                         }
                         return false;
                     }
@@ -94,7 +98,7 @@ function inventoryDisplay() {
                     let currentItem = results[i];
                     if (currentItem.item_id == chosenItem) {
                         if (orderQty <= currentItem.stock_quantity) {
-                            console.log('Your order is approved. Your total cost is $' + (orderQty * currentItem.price).toFixed(2));
+                            console.log('\nYour order is approved. Your total cost is $' + (orderQty * currentItem.price).toFixed(2));
 
                             // updates MySQL database
                             let updateQuery = "UPDATE products SET stock_quantity = " + (currentItem.stock_quantity - orderQty) +
@@ -103,17 +107,12 @@ function inventoryDisplay() {
                             connection.query(updateQuery,
                                 function (err, results) {
                                     if (err) throw err;
-                                    else {
-                                        // buyAgain();
-                                    }
+
                                 })
-
                         } else {
-                            console.log('\x1b[31mSorry, we do not have that many in stock.\x1b[0m');
-                            // buyAgain();
+                            console.log('\n\x1b[31mSorry, we do not have that many in stock.\x1b[0m');
                         }
-                        connection.end();
-
+                        inventoryDisplay();
                     }
                 }
             });
