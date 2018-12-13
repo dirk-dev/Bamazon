@@ -29,11 +29,11 @@ function buyAgain() {
 
     inquirer.prompt([{
         name: 'choice',
-        type: 'rawlist',
+        type: 'list',
         choices: ['YES', 'NO'],
-        message: 'Do you want to buy anything else?',
-        validate: function (choice) {
-            if (choice) {
+        message: 'Do you want to buy anything else?\n Type CTRL-C to quit.\n',
+        validate: function (value) {
+            if (value == 'YES') {
                 console.log('i.d. called')
                 inventoryDisplay();
             } else {
@@ -60,10 +60,7 @@ function inventoryDisplay() {
                     message: 'What is the id of the product you want to purchase?',
                     validate: function (value) {
                         //prevents user from entering invalid input
-                        if (value > results.length) {
-                            return false;
-                        }
-                        if (value < 1) {
+                        if ((value > results.length) || (value < 1)) {
                             return false;
                         }
                         if (isNaN(value) === false) {
@@ -112,7 +109,7 @@ function inventoryDisplay() {
                                 })
 
                         } else {
-                            console.log('\x1b[31mSorry, we do not have that many in stock.\x1b[0m')
+                            console.log('\x1b[31mSorry, we do not have that many in stock.\x1b[0m');
                             // buyAgain();
                         }
                         connection.end();
