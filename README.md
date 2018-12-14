@@ -3,7 +3,7 @@
 ## Setup - MySQL/MAMP
 1. You will need to have a MySQL server running to use this app. MAMP is free software that runs a MySQL server on your local machine. Their URL can be found in the Technologies Used section below. Once you have a MySQL server running, take note of the `host`, `port`, `user` and `password` info on the server. On MAMP, this can be accessed clicking on the `open start page` icon on the MAMP app. 
 
-![MAMP connection info ](images/screenshots/mamp_connection_info.png)
+<kbd> <img src="images/screenshots/mamp_connection_info.png"/><kbd>
 
 2. Install and configure the MySQL database app. For `MySQL Workbench`, on the start screen, click on the add or edit icons next to `MySQL Connections` and check that the settings correspond to the MAMP settings. The password is normally `root`. Once the settings are entered, click the `Test Connection` button to confirm that the connection is working.  
 
