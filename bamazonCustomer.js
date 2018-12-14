@@ -58,6 +58,7 @@ function orderEntry() {
         if (err) {
             console.log('error', err)
         };
+        console.log('\n')
         console.table(results);
         console.log("---------------------------------------------------------------------\n");
 
@@ -112,7 +113,7 @@ function orderEntry() {
 
                                 })
                         } else {
-                            console.log('\n\x1b[31mSorry, we do not have that many in stock.\x1b[0m');
+                            console.log('\n\x1b[31mSorry, we do not have that many in stock.\x1b[0m\n');
                         }
                         userQuit();
                     }

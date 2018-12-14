@@ -35,9 +35,13 @@
 
 
 ## How to use Bamazon:
-1. Navigate in the command line to the directory where the Bamazon files are located. Type `node bamazonCustomer` at the prompt. 
+1. Navigate in the command line to the directory where the Bamazon files are located. Type `node bamazonCustomer` at the prompt.
+2. Select the item id for the product you wish to buy, and then the quantity desired. If you order more than what is available in inventory, the order will not go through and you will get a notification. If the order is successful, you will get a confirmation message with the total price of your order.
+3. To quit Bamazon, just type `y` at the prompt and Bamazon will exit.
 
+## Bamazon Demo
 
+![Bamazon demo](images/gifs/bamazon_demo.gif)
 
 
 ## Technologies used:
@@ -45,4 +49,4 @@
 * Node.js - https://nodejs.org
 * MySQL Workbench - https://www.mysql.com/products/workbench/
 * MAMP local server - https://www.mamp.info/en/
-* console.table (for formating console output) - https://www.npmjs.com/package/console.table
+* console.table NPM package (for formatting console output) - https://www.npmjs.com/package/console.table
