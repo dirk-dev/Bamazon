@@ -32,7 +32,6 @@ function inventoryDisplay() {
         console.log("\n\x1b[36mItems available for sale:\x1b[0m\n");
         console.table(results);
         console.log("---------------------------------------------------------------------");
-        /*this displays the prompt, but then immediately displays the next line. The second prompt needs to wait until the user answers if they want to quit */
         userQuit();
 
     })
@@ -46,7 +45,6 @@ function userQuit() {
             message: 'Do you want to quit?',
         }])
         .then(function (answer) {
-            // console.log(answer.quit)
             if (answer.quit == true) {
                 connection.end();
                 return false;
@@ -60,6 +58,9 @@ function orderEntry() {
         if (err) {
             console.log('error', err)
         };
+        console.table(results);
+        console.log("---------------------------------------------------------------------\n");
+
 
         inquirer.prompt([{
                     name: 'choice',
