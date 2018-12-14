@@ -7,7 +7,7 @@
 
 2. Install and configure the MySQL database app. For `MySQL Workbench`, on the start screen, click on the add or edit icons next to `MySQL Connections` and check that the settings correspond to the MAMP settings. The password is normally `root`. Once the settings are entered, click the `Test Connection` button to confirm that the connection is working.  
 
-![MySQL setup](images/screenshots/mysql_manage_server_onnections.png)
+<kbd> <img src="images/screenshots/mysql_manage_server_onnections.png"/><kbd>
 
 ## Setup - Database:
 1. Open the code for `bamazon_schema.sql` in your text editor, copy it, and paste it into the Query window of `MySQL Workbench`.
@@ -31,7 +31,7 @@
 
 4. Open `bamazonCustomer.js` in a text editor and change the connection info as needed to match the settings in your MySQL server and save it. 
 
-![JavaScript file connection settings](images/screenshots/javascript_connection_edits.png)
+<kbd> <img src="images/screenshots/javascript_connection_edits.png"/><kbd>
 
 
 ## How to use Bamazon:
