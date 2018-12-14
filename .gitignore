@@ -2,3 +2,5 @@ node_modules
 .DS_Store
 .env
 homework_instructions.md
+bamazonCustomer_ORIGINAL.js
+bamazonCustomer_ver3.js

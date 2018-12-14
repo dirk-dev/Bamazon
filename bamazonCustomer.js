@@ -25,38 +25,46 @@ connection.connect(function (err) {
     }
 })
 
-function buyAgain() {
-
-    inquirer.prompt([{
-        name: 'choice',
-        type: 'list',
-        choices: ['YES', 'NO'],
-        message: 'Do you want to buy anything else?\n Type CTRL-C/COMMAND-C to quit.\n',
-        validate: function (value) {
-            if (value == 'YES') {
-                console.log('i.d. called')
-                inventoryDisplay();
-            } else {
-                console.log('c.e. called')
-                connection.end();
-                return;
-            }
-        }
-    }])
-}
-
 function inventoryDisplay() {
 
     connection.query("SELECT * FROM products", function (err, results) {
         if (err) throw err;
         console.log("\n\x1b[36mItems available for sale:\x1b[0m\n");
         console.table(results);
-        console.log("---------------------------------------------------------");
+        console.log("---------------------------------------------------------------------");
+        /*this displays the prompt, but then immediately displays the next line. The second prompt needs to wait until the user answers if they want to quit */
+        userQuit();
+
+    })
+}
+
+function userQuit() {
+
+    inquirer.prompt([{
+            name: 'quit',
+            type: 'confirm',
+            message: 'Do you want to quit?',
+        }])
+        .then(function (answer) {
+            // console.log(answer.quit)
+            if (answer.quit == true) {
+                connection.end();
+                return false;
+            }
+            orderEntry();
+        })
+}
+
+function orderEntry() {
+    connection.query("SELECT * FROM products", function (err, results) {
+        if (err) {
+            console.log('error', err)
+        };
 
         inquirer.prompt([{
                     name: 'choice',
                     type: 'input',
-                    message: 'What is the item id of the product you want to purchase? [Type CTRL-c/COMMAND-c to quit]',
+                    message: 'What is the item id of the product you want to purchase?',
                     validate: function (value) {
                         if ((value > results.length) || (value < 1)) {
                             return false;
@@ -105,7 +113,7 @@ function inventoryDisplay() {
                         } else {
                             console.log('\n\x1b[31mSorry, we do not have that many in stock.\x1b[0m');
                         }
-                        inventoryDisplay();
+                        userQuit();
                     }
                 }
             });
