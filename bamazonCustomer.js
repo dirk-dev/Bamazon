@@ -1,3 +1,5 @@
+/* Link to updated portfolio with this app added to the portfolio page: https://dirk-kiesewetter.github.io/Bootstrap-Portfolio/portfolio.html */
+
 const mysql = require("mysql");
 const inquirer = require("inquirer");
 const consoleTable = require("console.table");
