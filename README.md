@@ -18,7 +18,7 @@
 
 <kbd> <img src = "images/gifs/run_schema.gif"/> <kbd>
 
-4. Delete the existing code and paste in the contents of the `bamazon_seeds.sql` file. This will import the data into the database. Click the left-most lighting bolt and click the refresh. expand the tables, and select the product table. Three small black icons will appear to the right. Click the right-most one, which looks like a small spreadsheet with a lightning bolt in the corner. This will display a preview of the database structure. Confirm that the table was created. You can also check the Output window on the bottom for any error messsages.
+4. Delete the existing code and paste in the contents of the `bamazon_seeds.sql` file. This will import the data into the database. Click the left-most lighting bolt and click the refresh. expand the tables, and select the product table. Three small black icons will appear to the right. Click the right-most one, which looks like a small spreadsheet with a lightning bolt in the corner. This will display a preview of the database structure. Confirm that the table was created. You can also check the Output window on the bottom for any error messages.
 
 <kbd> <img src = "images/gifs/run_seeds.gif"/> <kbd>
 
