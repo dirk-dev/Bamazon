@@ -1,15 +1,21 @@
 # Bamazon
 
+## About the App
+
+Bamazon is an app that simulates a small-scale web store accessed through a CLI. It uses a SQL database to store the product inventory. JavaScript is used to enter customer orders, update inventory, and calculate the total amount owed.
+
 ## Setup - MySQL/MAMP
-1. You will need to have a MySQL server running to use this app. MAMP is free software that runs a MySQL server on your local machine. Their URL can be found in the `Technologies Used` section below. Once you have a MySQL server running, take note of the `host`, `port`, `user` and `password` info on the server. On MAMP, this can be accessed clicking on the `open start page` icon on the MAMP app. 
+
+1. You will need to have a MySQL server running to use this app. MAMP is free software that runs a MySQL server on your local machine. Their URL can be found in the `Technologies Used` section below. Once you have a MySQL server running, take note of the `host`, `port`, `user` and `password` info on the server. On MAMP, this can be accessed clicking on the `open start page` icon on the MAMP app.
 
 <kbd> <img src="images/screenshots/mamp_connection_info.png"/><kbd>
 
-2. Install and configure the MySQL database app. For `MySQL Workbench`, on the start screen, click on the add or edit icons next to `MySQL Connections` and check that the settings correspond to the MAMP settings. The password is normally `root`. Once the settings are entered, click the `Test Connection` button to confirm that the connection is working.  
+2. Install and configure the MySQL database app. For `MySQL Workbench`, on the start screen, click on the add or edit icons next to `MySQL Connections` and check that the settings correspond to the MAMP settings. The password is normally `root`. Once the settings are entered, click the `Test Connection` button to confirm that the connection is working.
 
 <kbd> <img src="images/screenshots/mysql_manage_server_onnections.png"/><kbd>
 
 ## Setup - Database:
+
 1. Open the code for `bamazon_schema.sql` in your text editor, copy it, and paste it into the Query window of `MySQL Workbench`.
 
 2. Click the leftmost lightning-bolt icon (to the right of the disk icon), or select Query - Execute (All or Selection) in the Workbench menu. This will create the schema (skeleton) for the database.
@@ -23,18 +29,19 @@
 <kbd> <img src = "images/gifs/run_seeds.gif"/> <kbd>
 
 ## Setup - Node, NPM, and bamazonCustomer JavaScript file
+
 1. If not installed already, download & install `Node.js` on your computer.
 
-2. Copy the files to the directory you wish to run bamazon from. You will only need to copy the following files: `bamazon_schema.sql, bamazon_seeds.sql, bamazonCustomer,js, package-lock.json,` and `package.json`. The images folder is for the readme file and not needed.  
+2. Copy the files to the directory you wish to run bamazon from. You will only need to copy the following files: `bamazon_schema.sql, bamazon_seeds.sql, bamazonCustomer,js, package-lock.json,` and `package.json`. The images folder is for the readme file and not needed.
 
 3. At the command line in the directory where the Bamazon files are located, type `npm i` - this will read the `package.json` file and install any needed packages. They will be installed into a node_modules folder.
 
-4. Open `bamazonCustomer.js` in a text editor and change the connection info as needed to match the settings in your MySQL server and save it. 
+4. Open `bamazonCustomer.js` in a text editor and change the connection info as needed to match the settings in your MySQL server and save it.
 
 <kbd> <img src="images/screenshots/javascript_connection_edits.png"/><kbd>
 
-
 ## How to use Bamazon:
+
 1. Navigate in the command line to the directory where the Bamazon files are located. Type `node bamazonCustomer` at the prompt.
 
 2. Select the item id for the product you wish to buy, and then the quantity desired. If you order more than what is available in inventory, the order will not go through and you will get a notification. If the order is successful, you will get a confirmation message with the total price of your order.
@@ -45,10 +52,10 @@
 
 ![Bamazon demo](images/gifs/bamazon_demo.gif)
 
-
 ## Technologies used:
-* JavaScript
-* Node.js - https://nodejs.org
-* MySQL Workbench - https://www.mysql.com/products/workbench/
-* MAMP local server - https://www.mamp.info/en/
-* console.table NPM package (for formatting console output) - https://www.npmjs.com/package/console.table
+
+- JavaScript
+- Node.js - https://nodejs.org
+- MySQL Workbench - https://www.mysql.com/products/workbench/
+- MAMP local server - https://www.mamp.info/en/
+- console.table NPM package (for formatting console output) - https://www.npmjs.com/package/console.table
